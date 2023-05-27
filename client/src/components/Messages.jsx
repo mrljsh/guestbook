@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Message from "./Message";
 
 const Messages = () => {
@@ -19,7 +20,10 @@ const Messages = () => {
   }, [messages]);
 
   return (
-    <div className="px-6 flex justify-center">
+    <div className="px-6 flex flex-col items-center">
+      <Link to="/send" className="block">
+        Leave a feedback
+      </Link>
       {messages &&
         messages.map((message, index) => (
           <Message data={message} key={index} />
