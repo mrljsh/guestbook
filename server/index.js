@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const db = require('./db')
+const { body, validationResult } = require('express-validator');
 
 const app = express()
 app.use(express.json())
@@ -20,7 +21,17 @@ app.get("/messages", (req, res) => {
     })
 })
 
-app.post("/send", (req, res) => {
+app.post("/send", [
+    body('name').notEmpty().withMessage("This is required field").isLength({ max: 50 }).withMessage("The name shouldn't exceed 50 characters"),
+    body('message').notEmpty().withMessage("This is required field").isLength({max: 255}).withMessage("The message field cannot exceed 255 characters."),
+    ],(req, res) => {
+    
+    // Handling validation of inputs
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     // Sends message to the database with values from request body.
     const q = "INSERT INTO messages (`name`, `message`) VALUES (?)"
     const values = [
