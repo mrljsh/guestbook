@@ -15,15 +15,16 @@ const SendMessage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("https://localhost:8000/send", {
+    const res = await fetch("http://localhost:8000/send", {
       method: "POST",
-      body: {
+      body: JSON.stringify({
         name: name,
         message: message,
+      }),
+      headers: {
+        "Content-Type": "application/json",
       },
     });
-
-    console.log(await res.json());
   };
 
   return (
