@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Message from "./Message";
 
 const Messages = () => {
   const [messages, setMessages] = useState();
@@ -16,6 +17,15 @@ const Messages = () => {
     };
     fetchMessages();
   }, [messages]);
+
+  return (
+    <div>
+      {messages &&
+        messages.map((message, index) => (
+          <Message data={message} key={index} />
+        ))}
+    </div>
+  );
 };
 
 export default Messages;
