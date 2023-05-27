@@ -14,7 +14,8 @@ app.listen(8000, () => {
 })
 
 app.get("/messages", (req, res) => {
-    const q = "SELECT * FROM messages LIMIT 10"
+    // Get's last 10 messages from DB
+    const q = "SELECT * FROM messages ORDER BY time DESC LIMIT 10"
     db.query(q, (err, data) => {
         if(err) return res.json(err)
         return res.json(data)
