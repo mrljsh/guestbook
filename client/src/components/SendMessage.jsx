@@ -1,4 +1,17 @@
+import { useState } from "react";
+
 const SendMessage = () => {
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
   return (
     <form className="w-full max-w-lg mx-auto">
       <div className="mb-4">
@@ -13,6 +26,8 @@ const SendMessage = () => {
           id="name"
           type="text"
           placeholder="Enter your name"
+          value={name}
+          onChange={handleNameChange}
           required
         />
       </div>
@@ -28,6 +43,8 @@ const SendMessage = () => {
           id="message"
           rows="4"
           placeholder="Enter your message"
+          value={message}
+          onChange={handleMessageChange}
           required
         ></textarea>
       </div>
