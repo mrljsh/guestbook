@@ -1,14 +1,9 @@
 const express = require('express')
-const mysql = require('mysql')
 const cors = require('cors')
+const db = require('./db')
 
 const app = express()
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "guestbook"
-})
 
 app.listen(8000, () => {
     console.log("Server is running on port 8000")
