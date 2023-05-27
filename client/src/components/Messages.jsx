@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Message from "./Message";
+import { getMessages } from "../utils/api";
 
 const Messages = () => {
   const [messages, setMessages] = useState();
@@ -9,10 +10,8 @@ const Messages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await fetch("http://localhost:8000/messages", {
-          method: "GET",
-        });
-        setMessages(await res.json());
+        const res = await getMessages();
+        setMessages(await res);
       } catch (err) {
         setErrMessage(err);
         console.log(err);
