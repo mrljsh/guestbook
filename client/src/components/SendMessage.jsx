@@ -12,8 +12,22 @@ const SendMessage = () => {
     setMessage(e.target.value);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("https://localhost:8000/send", {
+      method: "POST",
+      body: {
+        name: name,
+        message: message,
+      },
+    });
+
+    console.log(await res.json());
+  };
+
   return (
-    <form className="w-full max-w-lg mx-auto">
+    <form className="w-full max-w-lg mx-auto" onSubmit={handleSubmit}>
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
