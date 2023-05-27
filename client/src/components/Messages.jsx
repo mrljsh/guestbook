@@ -19,7 +19,7 @@ const Messages = () => {
   }, [messages]);
 
   return (
-    <div>
+    <div className="px-6 flex justify-center">
       {messages &&
         messages.map((message, index) => (
           <Message data={message} key={index} />
