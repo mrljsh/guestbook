@@ -17,7 +17,7 @@ const Messages = () => {
       }
     };
     fetchMessages();
-  }, [messages]);
+  }, []);
 
   return (
     <div className="px-6 flex flex-col items-center">
