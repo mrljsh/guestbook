@@ -4,6 +4,7 @@ import Message from "./Message";
 
 const Messages = () => {
   const [messages, setMessages] = useState();
+  const [errMessage, setErrMessage] = useState();
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -13,6 +14,7 @@ const Messages = () => {
         });
         setMessages(await res.json());
       } catch (err) {
+        setErrMessage(err);
         console.log(err);
       }
     };
@@ -27,6 +29,7 @@ const Messages = () => {
       >
         Leave a feedback
       </Link>
+      {errMessage && <p>There was an error: {errMessage}</p>}
       {messages &&
         messages.map((message, index) => (
           <Message data={message} key={index} />
