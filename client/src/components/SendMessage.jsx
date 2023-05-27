@@ -50,6 +50,7 @@ const SendMessage = () => {
           placeholder="Enter your name"
           value={name}
           onChange={handleNameChange}
+          maxLength={50}
           required
         />
       </div>
@@ -67,6 +68,7 @@ const SendMessage = () => {
           placeholder="Enter your message"
           value={message}
           onChange={handleMessageChange}
+          maxLength={255}
           required
         ></textarea>
       </div>
