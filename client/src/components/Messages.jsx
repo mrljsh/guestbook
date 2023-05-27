@@ -21,7 +21,10 @@ const Messages = () => {
 
   return (
     <div className="px-6 flex flex-col items-center">
-      <Link to="/send" className="block">
+      <Link
+        to="/send"
+        className="bg-green-500 hover:bg-green-600 hover:transition-all text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
         Leave a feedback
       </Link>
       {messages &&
