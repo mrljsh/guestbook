@@ -4,6 +4,7 @@ const SendMessage = () => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [reqMessage, setReqMessage] = useState("");
+  const [disabled, setDisabled] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -15,7 +16,10 @@ const SendMessage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Sets message sending bellow button and disables button
     setReqMessage("Sending...");
+    setDisabled(true);
 
     try {
       const res = await fetch("http://localhost:8000/send", {
@@ -28,11 +32,13 @@ const SendMessage = () => {
           "Content-Type": "application/json",
         },
       });
-
       const responseMessage = await res.json();
       setReqMessage(responseMessage);
     } catch (err) {
+      // If error found, writes the error message below submit
+      // button, and button becomes enabled again
       setReqMessage(err.message);
+      setDisabled(false);
     }
   };
 
@@ -74,8 +80,9 @@ const SendMessage = () => {
       </div>
       <div className="flex items-center justify-center flex-col">
         <button
-          className="bg-green-500 hover:bg-green-600 hover:transition-all text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-green-500 disabled:bg-gray-500 hover:bg-green-600 hover:transition-all text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
+          disabled={disabled}
         >
           Submit
         </button>
