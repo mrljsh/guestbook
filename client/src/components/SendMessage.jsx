@@ -3,6 +3,7 @@ import { useState } from "react";
 const SendMessage = () => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const [reqMessage, setReqMessage] = useState("");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -14,17 +15,25 @@ const SendMessage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setReqMessage("Sending...");
 
-    const res = await fetch("http://localhost:8000/send", {
-      method: "POST",
-      body: JSON.stringify({
-        name: name,
-        message: message,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const res = await fetch("http://localhost:8000/send", {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          message: message,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const responseMessage = await res.json();
+      setReqMessage(responseMessage);
+    } catch (err) {
+      setReqMessage(err.message);
+    }
   };
 
   return (
@@ -70,6 +79,7 @@ const SendMessage = () => {
         >
           Submit
         </button>
+        {reqMessage && <span>{reqMessage}</span>}
       </div>
     </form>
   );
