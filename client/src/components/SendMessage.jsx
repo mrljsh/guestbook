@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sendMessage } from "../utils/api";
 
 const SendMessage = () => {
   const [name, setName] = useState("");
@@ -22,17 +23,8 @@ const SendMessage = () => {
     setDisabled(true);
 
     try {
-      const res = await fetch("http://localhost:8000/send", {
-        method: "POST",
-        body: JSON.stringify({
-          name: name,
-          message: message,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const responseMessage = await res.json();
+      const res = await sendMessage(name, message);
+      const responseMessage = await res;
       setReqMessage(responseMessage);
     } catch (err) {
       // If error found, writes the error message below submit
